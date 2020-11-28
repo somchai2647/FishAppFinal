@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 let API = Axios.create({
-    baseURL: 'http://10.2.25.87:7788',
+    baseURL: 'http://192.168.1.144:7788',
     timeout: 10000,
 });
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import Navbar from "../components/Navbar2";
@@ -8,7 +8,7 @@ import Axios from "../components/API";
 export default class addPond extends Component {
     state = {
         p_name: '',
-        fish_type: '',
+        // fish_type: '',
         p_width: 0.0,
         p_height: 0.0,
         p_length: 0.0,
@@ -37,7 +37,7 @@ export default class addPond extends Component {
                         </View>
                         <View style={styles.input_group}>
                             <Text style={styles.label}>ประเภทปลา</Text>
-                            <TextInput style={styles.form_control} onChangeText={(fish_type) => this.setState({ fish_type })}></TextInput>
+                            <TextInput style={styles.form_control} placeholder="เว้นไว้ก่อน" /*onChangeText={(fish_type) => this.setState({ fish_type })}*/></TextInput>
                         </View>
                         <View style={{ marginTop: 20 }}></View>
                         <View style={styles.input_group}>
@@ -55,8 +55,14 @@ export default class addPond extends Component {
                         <View>
                             <TouchableOpacity style={styles.apply} onPress={() => {
                                 let data = this.state;
-                                Axios.post("/pond/add", { data }).then(res => {
+                                Axios.post("/pond/add", data).then(res => {
                                     console.log(res.data);
+                                    if (res.data.code != 0) {
+                                        Alert.alert('Success', 'เพิ่มข้อมูลสำเร็จ')
+                                        this.setState({ ...defaultStatus })
+                                    } else {
+                                        Alert.alert('Alet', 'ไม่สามารถเพิ่มข้อมูลได้')
+                                    }
                                 }).catch(err => {
                                     console.log(err);
                                 });
