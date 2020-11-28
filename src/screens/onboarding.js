@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import Onboarding from 'react-native-onboarding-swiper';
 
-export default function addPond() {
+export default function onboarding() {
     return (
         <Onboarding
             pages={[

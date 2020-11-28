@@ -3,15 +3,15 @@ import { ScrollView, SafeAreaView, StyleSheet, Button } from 'react-native'
 import ButtonCard from "../components/ButtonCard";
 import Navbar from "../components/Navbar";
 
-export default function Home() {
-    
+export default function Home({ route }) {
+    const { username, response } = route.params;
     return (
         <>
-            <Navbar />
+            <Navbar title={username} />
             <SafeAreaView style={style.container} >
                 <ScrollView showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}>
-                    <ButtonCard title="เพิ่มบ่อปลา" color="lightgreen" icon="plus-circle" subTitle="เพิ่มข้อมูลบ่อปลาใหม่" toPage="addPond" />
+                    <ButtonCard title="เพิ่มบ่อปลา" color="lightgreen" icon="plus-circle" subTitle="เพิ่มข้อมูลบ่อปลาใหม่" toPage="checkList" data={route.params} />
                     <ButtonCard title="บ่อปลา" color="lightblue" icon="fish" subTitle="ข้อมูลบ่อปลาทั้งหมด" toPage="Pond" />
                     <ButtonCard title="คู่มือแนะนำ" color="pink" icon="book" subTitle="ข้อมูลหรือสื่อของผู้ประกอบการ" />
                     <ButtonCard title="สถิติ" color="#e0aaff" icon="chart-area" subTitle="ข้อมูลหรือสื่อของผู้ประกอบการ" />
@@ -27,6 +27,6 @@ const style = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 20
+        // paddingTop: 20
     },
 });

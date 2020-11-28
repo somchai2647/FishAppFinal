@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import BtnLogin from '../components/BtnLogin';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {
     SafeAreaView,
     StyleSheet,
@@ -13,13 +15,34 @@ import {
     Button
 } from 'react-native';
 const screen = Dimensions.get("screen");
+const getData = async (key) => {
+    try {
+        const value = await AsyncStorage.getItem(key)
+        if (value !== null) {
+            return value;
+        }
+    } catch (e) {
+        // error reading value
+    }
+}
+const checkLogin = async (status) => {
+    if (status !== false) {
+        navigation.replace('Home');
+    }
+}
 export default class Login extends Component {
     state = {
         username: '',
         password: '',
+        isLoginSuccess: ''
+    }
+    componentDidMount() {
+        // this.state.isLoginSuccess = getData("isLoginSuccess");
+        // checkLogin(getData("isLoginSuccess"));
     }
     render() {
         return (
+
             <>
                 <View style={styles.background}>
                     <View style={styles.backPath}>
@@ -46,6 +69,7 @@ export default class Login extends Component {
         )
     }
 }
+
 const styles = StyleSheet.create({
     title: { width: screen.width, position: 'absolute', fontSize: 22.5, textAlign: 'center', marginTop: screen.height * 0.150, color: 'white' },
     background: {
