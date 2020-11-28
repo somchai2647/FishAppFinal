@@ -7,6 +7,8 @@ import Axios from "../components/API"
 export default function BtnLogin({ username = "", password = "" }) {
     const navigation = useNavigation();
     let data = {
+        user_id : '',
+        token: '',
         username: username,
         password: password,
         isloadding: false,
@@ -31,14 +33,14 @@ export default function BtnLogin({ username = "", password = "" }) {
     const onSubmit = () => {
         Axios.post("/auth/login", data).then(res => {
             data.response = res.data;
-            if (data.response.code == 1) {
-                Alert.alert('Login Failed', 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง');
-            } else {
+            if (data.response.code == 0 && data.response.result.user_role == "user") {
                 console.log(data.response);
                 data.isLoginSuccess = true;
-                // storeDataJSON(data, data.response);
-                // storeData(loginstatus, data.isLoginSuccess);
+                data.user_id = data.response.result._id;
+                data.token = data.response.token;
                 navigation.replace('Home', data)
+            } else {
+                Alert.alert('Login Failed', 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง');
             }
         }).catch(err => {
             Alert.alert('Network ERROR', err);
@@ -47,8 +49,6 @@ export default function BtnLogin({ username = "", password = "" }) {
 
     return (
         <TouchableOpacity onPress={() => {
-            // navigation.replace('Home')
-            // Alert.alert(`${username}`, `${password}`);
             onSubmit();
         }} style={styles.button}
         >

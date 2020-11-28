@@ -1,17 +1,29 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { ScrollView, SafeAreaView, StyleSheet, Button, TouchableOpacity, Text } from 'react-native'
 import ButtonCard from "../components/ButtonCard";
 import { useNavigation } from '@react-navigation/native';
 
 import Navbar from "../components/Navbar2";
 
+function Apply({ toPage = "", data }) {
+    const navigation = useNavigation();
+    return (
+        <>
+            <TouchableOpacity style={style.apply} onPress={() => {
+                navigation.navigate(toPage, data)
+            }}>
+                <Text style={style.apply_text}>ถัดไป</Text>
+            </TouchableOpacity>
+        </>
+    )
+}
 
 export default function checkList({ route }) {
     const { username, response } = route.params;
     return (
         <>
-            <Navbar title="เพิ่มบ่อปลา" />
-            <Apply />
+            <Navbar title="ประเมินบ่อเลี้ยง" />
+            <Apply toPage="addPond" data={route.params} />
             <Text>Check List</Text>
         </>
     )
@@ -43,15 +55,3 @@ const style = StyleSheet.create({
     }
 });
 
-function Apply(toPage = "", data) {
-    const navigation = useNavigation();
-    return (
-        <>
-            <TouchableOpacity style={style.apply} onPress={() => {
-                navigation.navigate(toPage, data)
-            }}>
-                <Text style={style.apply_text}>ถัดไป</Text>
-            </TouchableOpacity>
-        </>
-    )
-}
