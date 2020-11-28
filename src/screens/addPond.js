@@ -6,25 +6,22 @@ import Navbar from "../components/Navbar2";
 import Axios from "../components/API";
 
 export default class addPond extends Component {
-    state = {
-        p_name: '',
-        // fish_type: '',
-        p_width: 0.0,
-        p_height: 0.0,
-        p_length: 0.0,
-        p_fish_date: 90,
-        p_number_fish: 100,
-        p_number_success: 0
+    constructor(props) {
+        super(props)
+        this.state = {
+            p_name: '',
+            // fish_type: '',
+            p_width: 0.0,
+            p_height: 0.0,
+            p_length: 0.0,
+            p_fish_date: 90,
+            p_number_fish: 100,
+            p_number_success: 0,
+            user_id: ''
+            // routedata: this.props.route
+        }
     }
     render() {
-        function Apply({ data }) {
-            // Axios.post("/pond/add", data).then(res => {
-            //     console.log(res);
-            // }).catch(err => {
-            //     console.log(err);
-            // });
-            console.log(data)
-        }
         return (
             <>
                 <Navbar title="เพิ่มข้อมูล" />
@@ -55,17 +52,29 @@ export default class addPond extends Component {
                         <View>
                             <TouchableOpacity style={styles.apply} onPress={() => {
                                 let data = this.state;
-                                Axios.post("/pond/add", data).then(res => {
-                                    console.log(res.data);
-                                    if (res.data.code != 0) {
-                                        Alert.alert('Success', 'เพิ่มข้อมูลสำเร็จ')
-                                        this.setState({ ...defaultStatus })
-                                    } else {
-                                        Alert.alert('Alet', 'ไม่สามารถเพิ่มข้อมูลได้')
-                                    }
-                                }).catch(err => {
-                                    console.log(err);
-                                });
+                                const success = {
+                                    user_id, p_name,
+                                    // fish_type: '',
+                                    p_width,
+                                    p_height,
+                                    p_length,
+                                    p_fish_date,
+                                    p_number_fish,
+                                    user_id
+                                } = data
+                                // console.log(success);
+                                console.log(this.props.route.user_id)
+                                // Axios.post("/pond/add", data).then(res => {
+                                //     console.log(res.data);
+                                //     if (res.data.code == 0) {
+                                //         Alert.alert('Success', 'เพิ่มข้อมูลสำเร็จ')
+                                //         this.setState({ ...defaultStatus })
+                                //     } else {
+                                //         Alert.alert('Alet', 'ไม่สามารถเพิ่มข้อมูลได้')
+                                //     }
+                                // }).catch(err => {
+                                //     console.log(err);
+                                // });
                             }}>
                                 <Text style={styles.apply_text}>ถัดไป</Text>
                             </TouchableOpacity>

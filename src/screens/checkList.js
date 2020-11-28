@@ -23,7 +23,10 @@ export default function checkList({ route }) {
     return (
         <>
             <Navbar title="ประเมินบ่อเลี้ยง" />
-            <Apply toPage="addPond" data={route.params} />
+            <Button title="CLICK" onPress={()=>{
+                console.log(route.params.user_id);
+            }} />
+            <Apply toPage="addPond" data={route.params.data.user_id} />
             <Text>Check List</Text>
         </>
     )

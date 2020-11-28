@@ -3,12 +3,12 @@ import { Alert, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-na
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { useNavigation } from '@react-navigation/native';
 
-export default function ButtonCard({ title = "TITLE", subTitle = "subtitile", color = "red", icon = "", toPage = "", data }) {
+export default function ButtonCard({ title = "TITLE", subTitle = "subtitile", color = "red", icon = "", toPage = "", data, user_id = "" }) {
     const navigation = useNavigation();
     return (
         <>
             <TouchableOpacity style={[style.card, { backgroundColor: color }]} onPress={() => {
-                navigation.navigate(`${toPage}`, data)
+                navigation.navigate(`${toPage}`, { data, user_id })
             }}>
                 <Text style={style.title}>{title}</Text>
                 <Text style={style.subtitle}>{subTitle}</Text>

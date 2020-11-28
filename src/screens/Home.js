@@ -4,10 +4,12 @@ import ButtonCard from "../components/ButtonCard";
 import Navbar from "../components/Navbar";
 
 export default function Home({ route }) {
-    const { username, response } = route.params;
+    const { username } = route.params;
     return (
         <>
             <Navbar title={username} />
+            <Button title="CLICK" onPress={()=>{
+            }} />
             <SafeAreaView style={style.container} >
                 <ScrollView showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}>

@@ -44,7 +44,7 @@ export default class Login extends Component {
         return (
 
             <>
-                <View style={styles.background}>
+                <SafeAreaView style={styles.background}>
                     <View style={styles.backPath}>
                         {/* <View style={styles.logo} /> */}
                         <Text style={styles.title}>ระบบสนับสนุนการตัดสินใจ{"\n"}สำหรับการเลี้ยงปลา</Text>
@@ -64,7 +64,7 @@ export default class Login extends Component {
                     </View>
                     {/* <Text style={styles.footerText}>เทคโนโลยีสารสนเทศ{"\n"}วิทยาลัยอาชีวศึกษาเชียงราย</Text> */}
 
-                </View>
+                </SafeAreaView>
             </>
         )
     }
