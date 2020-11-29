@@ -1,43 +1,60 @@
-import React from 'react'
-import { SafeAreaView, StyleSheet, Button } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler';
-import Navbar from "../components/Navbar2";
 import PondCard from "../components/PondCard";
+import Navbar2 from "../components/Navbar2";
 import Axios from "../components/API";
-import { useNavigation } from '@react-navigation/native';
+import React, { Component } from 'react';
+import { ActivityIndicator, FlatList, Text, View, SafeAreaView, StyleSheet } from 'react-native';
+import { ScrollView } from "react-native-gesture-handler";
 
-export default function Pond({ route }) {
-    const navigation = useNavigation();
-    let user_id = route.params.data;
-    const loadPond = async () => {
-        await Axios.get(`/pond/show/${user_id}`).then(res => {
-            console.log(res.data)
-        }).catch(err => {
+export default class Pond extends Component {
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            data: [],
+            user_id: this.props.route.params.data,
+            isLoading: true
+        };
+    }
+
+    componentDidMount() {
+        this.setState({ isLoadding: true });
+        Axios.get(`/pond/show/${this.state.user_id}`).then(res => {
+            this.setState({ data: res.data.result });
+            this.setState({ isLoading: false });
+            console.log(this.state)
         });
     }
-    return (
-        <>
-            <Navbar />
-            <SafeAreaView style={style.container}>
-                <ScrollView>
-                    <Button title="CLICK" onPress={() => {
 
-                        loadPond();
+    render() {
+        const { data, isLoading } = this.state;
 
-                    }} />
-                    <PondCard />
-                </ScrollView>
-            </SafeAreaView>
-        </>
-    )
-}
-const style = StyleSheet.create({
+        return (
+            <>
+                <Navbar2 title="รายการบ่อเลี้ยง" />
+                <SafeAreaView style={styles.container}>
+                    <View>
+                        {isLoading ? <ActivityIndicator /> : (
+                            <FlatList
+                                data={data}
+                                keyExtractor={({ _id }, index) => _id}
+                                renderItem={({ item }) => (
+                                    // <Text>{item.p_name}</Text>
+                                    <PondCard title={item.p_name} color="green" />
+                                )}
+                            />
+                        )}
+                    </View>
+                </SafeAreaView>
+            </>
+
+        );
+    }
+};
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 20
+        // paddingTop: 20
     }
-});
-
+})

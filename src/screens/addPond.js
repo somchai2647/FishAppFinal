@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
+import { Text, View, StyleSheet, SafeAreaView, TouchableOpacity, Alert, Button } from 'react-native'
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import Navbar from "../components/Navbar2";
@@ -8,7 +8,10 @@ import Axios from "../components/API";
 export default class addPond extends Component {
     constructor(props) {
         super(props)
-        this.state = {
+        this.state = this.initialState;
+    }
+    get initialState() {
+        return {
             p_name: '',
             p_width: 0.0,
             p_height: 0.0,
@@ -16,7 +19,7 @@ export default class addPond extends Component {
             p_fish_date: 90,
             p_number_fish: 100,
             p_number_success: 0,
-            user_id: '5fc267f6e0f626069cc97175',
+            user_id: this.props.route.params,
             fish_type: '5fbe1ac1b1969738b8693e56'
         }
     }
@@ -27,6 +30,9 @@ export default class addPond extends Component {
                 <SafeAreaView style={styles.container}>
                     <ScrollView showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}>
+                        <Button title="CLICK" onPress={() => {
+                            console.log(this.props.route.params)
+                        }} />
                         <View style={styles.input_group}>
                             <Text style={styles.label} >ชื่อบ่อปลา</Text>
                             <TextInput style={styles.form_control} onChangeText={(p_name) => this.setState({ p_name })} ></TextInput>
@@ -51,11 +57,14 @@ export default class addPond extends Component {
                         <View>
                             <TouchableOpacity style={styles.apply} onPress={() => {
                                 let data = this.state;
+                                const navigation = useNavigation();
+
                                 Axios.post("/pond/add", data).then(res => {
                                     console.log(res.data);
                                     if (res.data.code == 0) {
                                         Alert.alert('Success', 'เพิ่มข้อมูลสำเร็จ')
-                                        this.setState({ ...defaultStatus })
+                                        this.setState(this.initialState)
+                                        navigation.navigate(`${toPage}`, { data, user_id })
                                     } else {
                                         Alert.alert('Alet', 'ไม่สามารถเพิ่มข้อมูลได้')
                                     }

@@ -7,16 +7,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Home({ route }) {
     const { username } = route.params;
-    const load = async (key) => {
-        try {
-            let value = await AsyncStorage.getItem(key);
-            if (value !== null) {
-                return value;
-            }
-        } catch (error) {
-            Alert.alert('storeData ERROR!', 'ไม่สามารถเรียกข้อมูลได้');
-        }
-    }
     return (
         <>
             <Navbar title={username} />

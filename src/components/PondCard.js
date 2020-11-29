@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default function ButtonCard({ title = "TITLE", subTitle = "subtitile" }) {
+export default function ButtonCard({ title = "TITLE", subTitle = "subtitile", color = "red" }) {
     return (
         <>
-            <TouchableOpacity style={[style.card, { backgroundColor: 'red' }]}>
+            <TouchableOpacity style={[style.card, { backgroundColor: color }]}>
                 <Text style={style.title}>{title}</Text>
                 <Text style={style.subtitle}>{subTitle}</Text>
                 <Icon name="fish" style={style.icon} />
