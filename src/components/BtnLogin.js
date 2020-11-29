@@ -2,12 +2,12 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import Axios from "../components/API"
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function BtnLogin({ username = "", password = "" }) {
     const navigation = useNavigation();
     let data = {
-        user_id : '',
+        user_id: '',
         token: '',
         username: username,
         password: password,
@@ -15,21 +15,13 @@ export default function BtnLogin({ username = "", password = "" }) {
         isLoginSuccess: false,
         response: []
     }
-    // const storeData = async (key, value) => {
-    //     try {
-    //         await AsyncStorage.setItem(key, value)
-    //     } catch (e) {
-    //         Alert.alert('AsyncStorage', 'AsyncStorage Save Data Failed!');
-    //     }
-    // }
-    // const storeDataJSON = async (key, value) => {
-    //     try {
-    //         const objData = JSON.stringify(value)
-    //         await AsyncStorage.setItem(key, objData)
-    //     } catch (e) {
-    //         Alert.alert('AsyncStorage', 'AsyncStorage Save JSON Data Failed!');
-    //     }
-    // }
+   const save = async (key, value) => {
+        try {
+            await AsyncStorage.setItem(key, value);
+        } catch (err) {
+            Alert.alert('storeData ERROR!', 'ไม่สามารถบันทึกข้อมูลได้');
+        }
+    }
     const onSubmit = () => {
         Axios.post("/auth/login", data).then(res => {
             data.response = res.data;
@@ -38,6 +30,7 @@ export default function BtnLogin({ username = "", password = "" }) {
                 data.isLoginSuccess = true;
                 data.user_id = data.response.result._id;
                 data.token = data.response.token;
+                save("user_id",data.user_id);
                 navigation.replace('Home', data)
             } else {
                 Alert.alert('Login Failed', 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง');
