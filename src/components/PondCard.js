@@ -1,19 +1,56 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, { Component } from 'react'
+import { Text, View, StyleSheet, Alert, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import Axios from "../components/API"
+export default class PondCard extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            color: this.props.color,
+            title: this.props.title,
+            subTitle: this.props.subTitle,
+            p_id: this.props.p_id
+        }
+    }
+    delPond = (p_id) => {
+        Axios.delete(`/pond/delete/${p_id}`).then(res => {
+            if (res.data.code == 0) {
+            }
+        }).catch(err => {
+            Alert.alert("Axios ERROR", err)
+        })
+    }
+    AlertDel = () => {
+        const { p_id } = this.state
+        Alert.alert(
+            "คุณต้องการลบ หรือไม่?",
+            "หากลบแล้วไม่สามารถนำข้อมูลกลับคืนได้",
+            [
+                {
+                    text: "ยกเลิก",
+                    style: "cancel"
+                },
+                { text: "ลบ", onPress: () => this.delPond(p_id) }
+            ],
+            { cancelable: false }
+        );
+    }
 
-export default function ButtonCard({ title = "TITLE", subTitle = "subtitile", color = "red" }) {
-    return (
-        <>
-            <TouchableOpacity style={[style.card, { backgroundColor: color }]}>
+    render() {
+        const { title, subTitle, color } = this.state
+        return (
+            <TouchableOpacity style={[style.card, { backgroundColor: color }]} onLongPress={() => {
+                this.AlertDel();
+            }} onPress={() => {
+                this.setState({ isLoadding: true }, this.props.CallBack)
+            }}>
                 <Text style={style.title}>{title}</Text>
                 <Text style={style.subtitle}>{subTitle}</Text>
                 <Icon name="fish" style={style.icon} />
             </TouchableOpacity>
-        </>
-    )
+        )
+    }
 }
-
 const style = StyleSheet.create({
     card: {
         height: 130,

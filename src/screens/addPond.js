@@ -1,27 +1,31 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, SafeAreaView, TouchableOpacity, Alert, Button } from 'react-native'
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
+import useNavigation from '@react-navigation/native';
 import Navbar from "../components/Navbar2";
 import Axios from "../components/API";
 
 export default class addPond extends Component {
     constructor(props) {
         super(props)
-        this.state = this.initialState;
-    }
-    get initialState() {
-        return {
+        this.state = {
             p_name: '',
-            p_width: 0.0,
-            p_height: 0.0,
-            p_length: 0.0,
+            p_width: null,
+            p_height: null,
+            p_length: null,
             p_fish_date: 90,
             p_number_fish: 100,
             p_number_success: 0,
             user_id: this.props.route.params,
             fish_type: '5fbe1ac1b1969738b8693e56'
-        }
+        };
+    }
+    uploadPond = (payload) => {
+        Axios.post("/pond/add", payload).then(res => {
+            console.log(res.data);
+        }).catch(err => {
+            console.log(err);
+        });
     }
     render() {
         return (
@@ -54,27 +58,16 @@ export default class addPond extends Component {
                             <Text style={styles.label}>ขนาดความสูง</Text>
                             <TextInput style={styles.form_control} keyboardType="decimal-pad" onChangeText={(p_height) => this.setState({ p_height })}></TextInput>
                         </View>
-                        <View>
-                            <TouchableOpacity style={styles.apply} onPress={() => {
-                                let data = this.state;
-                                const navigation = useNavigation();
+                        <TouchableOpacity style={styles.apply} onPress={() => {
+                            const data = this.state;
+                            if (data.p_name != "" && data.p_length != "" && data.p_width != "") {
+                                console.log(data)
+                                this.uploadPond(data)
 
-                                Axios.post("/pond/add", data).then(res => {
-                                    console.log(res.data);
-                                    if (res.data.code == 0) {
-                                        Alert.alert('Success', 'เพิ่มข้อมูลสำเร็จ')
-                                        this.setState(this.initialState)
-                                        navigation.navigate(`${toPage}`, { data, user_id })
-                                    } else {
-                                        Alert.alert('Alet', 'ไม่สามารถเพิ่มข้อมูลได้')
-                                    }
-                                }).catch(err => {
-                                    console.log(err);
-                                });
-                            }}>
-                                <Text style={styles.apply_text}>ถัดไป</Text>
-                            </TouchableOpacity>
-                        </View>
+                            }
+                        }}>
+                            <Text style={styles.apply_text}>ถัดไป</Text>
+                        </TouchableOpacity>
                     </ScrollView>
                 </SafeAreaView>
             </>
