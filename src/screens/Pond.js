@@ -14,7 +14,6 @@ export default class Pond extends Component {
             data: [],
             user_id: this.props.route.params.data,
             isLoading: false,
-            test: '1'
         };
     }
 
@@ -43,25 +42,23 @@ export default class Pond extends Component {
         }
 
         return (
-
             <>
                 <Navbar2 title="รายการบ่อเลี้ยง" />
                 <SafeAreaView style={styles.container}>
                     <View>
-                        {isLoading ? <Text style={styles.isLoadding}>กำลังโหลดข้อมูล...</Text> : (
+                        {this.state.isLoading ? <Text style={styles.isLoadding}>กำลังโหลดข้อมูล...</Text> : (
                             <FlatList style={{ paddingTop: 20 }} showsVerticalScrollIndicator={false}
                                 showsHorizontalScrollIndicator={false}
                                 data={data}
                                 keyExtractor={({ _id }, index) => _id}
                                 renderItem={({ item }) => (
-                                    <PondCard p_id={item._id} title={item.p_name} color="#48bfe3" CallBack={this.updateloadding} />
+                                    <PondCard p_id={item._id} title={item.p_name} color="#48bfe3" data={data} />
                                 )}
                             />
                         )}
                     </View>
                 </SafeAreaView>
             </>
-
         );
     }
 };
