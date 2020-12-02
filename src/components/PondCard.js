@@ -4,13 +4,14 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Axios from "../components/API"
 import { useNavigation } from '@react-navigation/native';
 
-export default function PondCard({ color = 'red', title = "TITLE", subTitle = "SubTitle", data }) {
+export default function PondCard({ color = 'red', title = "TITLE", subTitle = "SubTitle", data, p_id = "" }) {
     const navigation = useNavigation();
     return (
         <>
             <TouchableOpacity style={[style.card, { backgroundColor: color }]}
                 onPress={() => {
-                    navigation.navigate("pondDetail", data[0]._id)
+                    navigation.navigate("pondDetail", p_id)
+                    // console.log(p_id)
                 }}
             >
                 <Text style={style.title}>{title}</Text>

@@ -39,6 +39,39 @@ export default class pondDetail extends Component {
     componentDidMount() {
         this.loadData(this.state.p_id)
     }
+    mytime(time) {
+        const date = new Date(time);
+        const day = date.getUTCDate()
+        const mouth = date.getMonth() + 1
+        const year = date.getFullYear() + 543
+
+
+        const date2 = new Date();
+        const day2 = date2.getUTCDate()
+        const mouth2 = date2.getMonth() + 1
+        const year2 = date2.getFullYear() + 543
+
+
+        // const result
+        return `${day}/${mouth}/${year}`;
+
+    }
+
+    timeDifference(laterdate, earlierdate) {
+        // คำนวณความแตกต่างของวันที่
+        var difference = (new Date(laterdate).getTime()) - (new Date(earlierdate).getTime());
+        // แปลงเป็นวัน ชม. นาที วินาที
+        var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+        difference -= daysDifference * 1000 * 60 * 60 * 24
+        var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+        difference -= hoursDifference * 1000 * 60 * 60
+        var minutesDifference = Math.floor(difference / 1000 / 60);
+        difference -= minutesDifference * 1000 * 60
+        var secondsDifference = Math.floor(difference / 1000);
+        // แสดงผล
+
+        return `${daysDifference}`
+    }
     render() {
         const p_id = this.state.p_id;
         return (
@@ -46,6 +79,8 @@ export default class pondDetail extends Component {
                 <Navbar title="รายละเอียด" />
                 <Button title="CLICK" onPress={() => {
                     console.log(this.state.data)
+                    // console.log(this.mytime(this.state.data.p_fish_date))
+                    // console.log(this.timeDifference(new Date(), this.state.data.p_fish_date))
                 }} />
                 <SafeAreaView style={styles.container}>
                     <ScrollView>
@@ -56,7 +91,7 @@ export default class pondDetail extends Component {
                         <Card2 text={this.state.fish_type} color="red" icon="fish" title="ประเภทปลา" />
                         <Card2 text={this.state.data.p_width} icon="circle" title="ความกว้าง" />
                         <Card2 text={this.state.data.p_length} icon="circle" title="ความยาว" />
-                        <Card2 text={this.state.data.p_fish_date} icon="clock" title="เวลาเลี้ยงปัจุบัน" />
+                        <Card2 text={this.timeDifference(new Date(), this.state.data.p_fish_date)} icon="clock" title="เวลาเลี้ยงปัจุบัน" />
                     </ScrollView>
                 </SafeAreaView>
             </>

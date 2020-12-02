@@ -34,9 +34,6 @@ export default class addPond extends Component {
                 <SafeAreaView style={styles.container}>
                     <ScrollView showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}>
-                        <Button title="CLICK" onPress={() => {
-                            console.log(this.props.route.params)
-                        }} />
                         <View style={styles.input_group}>
                             <Text style={styles.label} >ชื่อบ่อปลา</Text>
                             <TextInput style={styles.form_control} onChangeText={(p_name) => this.setState({ p_name })} ></TextInput>
@@ -108,6 +105,14 @@ const styles = StyleSheet.create({
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
     },
     apply_text: {
         color: 'white',

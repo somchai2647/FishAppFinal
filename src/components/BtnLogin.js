@@ -15,7 +15,7 @@ export default function BtnLogin({ username = "", password = "" }) {
         isLoginSuccess: false,
         response: []
     }
-   const save = async (key, value) => {
+    const save = async (key, value) => {
         try {
             await AsyncStorage.setItem(key, value);
         } catch (err) {
@@ -23,21 +23,26 @@ export default function BtnLogin({ username = "", password = "" }) {
         }
     }
     const onSubmit = () => {
-        Axios.post("/auth/login", data).then(res => {
-            data.response = res.data;
-            if (data.response.code == 0 && data.response.result.user_role == "user") {
-                console.log(data.response);
-                data.isLoginSuccess = true;
-                data.user_id = data.response.result._id;
-                data.token = data.response.token;
-                save("user_id",data.user_id);
-                navigation.replace('Home', data)
-            } else {
-                Alert.alert('Login Failed', 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง');
-            }
-        }).catch(err => {
-            Alert.alert('Network ERROR', err);
-        });
+        try {
+            Axios.post("/auth/login", data).then(res => {
+                data.response = res.data;
+                if (data.response.code == 0 && data.response.result.user_role == "user") {
+                    console.log(data.response);
+                    data.isLoginSuccess = true;
+                    data.user_id = data.response.result._id;
+                    data.token = data.response.token;
+                    save("user_id", data.user_id);
+                    navigation.replace('Home', data)
+                } else {
+                    Alert.alert('Login Failed', 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง');
+                }
+            }).catch(err => {
+                Alert.alert('Network ERROR', err);
+            });
+        } catch (error) {
+            console.log(error);
+        }
+
     };
 
     return (

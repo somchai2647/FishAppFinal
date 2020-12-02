@@ -2,7 +2,7 @@ import PondCard from "../components/PondCard";
 import Navbar2 from "../components/Navbar2";
 import Axios from "../components/API";
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, Text, View, SafeAreaView, StyleSheet, RefreshControl, Alert } from 'react-native';
+import { ActivityIndicator, FlatList, Text, View, SafeAreaView, StyleSheet, RefreshControl, Alert, Button } from 'react-native';
 import { ScrollView } from "react-native-gesture-handler";
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -20,7 +20,7 @@ export default class Pond extends Component {
 
     loadData() {
         this.setState({ isLoadding: true });
-        Axios.get(`/pond/show/${this.state.user_id}`).then(res => {
+        Axios.get(`/pond/list/${this.state.user_id}`).then(res => {
             this.setState({ data: res.data.result });
             this.setState({ isLoading: false });
             console.log(this.state)
@@ -45,6 +45,9 @@ export default class Pond extends Component {
             <>
                 <Navbar2 title="รายการบ่อเลี้ยง" />
                 <SafeAreaView style={styles.container}>
+                    <Button title="CLICK" onPress={()=>{
+                        console.log(this.state.data)
+                    }} />
                     <View>
                         {this.state.isLoading ? <Text style={styles.isLoadding}>กำลังโหลดข้อมูล...</Text> : (
                             <FlatList style={{ paddingTop: 20 }} showsVerticalScrollIndicator={false}
