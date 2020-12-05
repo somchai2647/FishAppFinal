@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { Text, View, StyleSheet, SafeAreaView, TouchableOpacity, Alert, Button } from 'react-native'
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import useNavigation from '@react-navigation/native';
 import Navbar from "../components/Navbar2";
-import Axios from "../components/API";
+import { BtnResult, BtnResult2 } from "../components/BtnResult"
 
 export default class addPond extends Component {
+
     constructor(props) {
         super(props)
+
         this.state = {
             p_name: '',
             p_width: null,
@@ -19,13 +20,6 @@ export default class addPond extends Component {
             user_id: this.props.route.params,
             fish_type: '5fbe1ac1b1969738b8693e56'
         };
-    }
-    uploadPond = (payload) => {
-        Axios.post("/pond/add", payload).then(res => {
-            console.log(res.data);
-        }).catch(err => {
-            console.log(err);
-        });
     }
     render() {
         return (
@@ -55,16 +49,8 @@ export default class addPond extends Component {
                             <Text style={styles.label}>ขนาดความสูง</Text>
                             <TextInput style={styles.form_control} keyboardType="decimal-pad" onChangeText={(p_height) => this.setState({ p_height })}></TextInput>
                         </View>
-                        <TouchableOpacity style={styles.apply} onPress={() => {
-                            const data = this.state;
-                            if (data.p_name != "" && data.p_length != "" && data.p_width != "") {
-                                console.log(data)
-                                this.uploadPond(data)
-
-                            }
-                        }}>
-                            <Text style={styles.apply_text}>ถัดไป</Text>
-                        </TouchableOpacity>
+                        {/* <BtnResult data={this.state} /> */}
+                        <BtnResult2 data={this.state} />
                     </ScrollView>
                 </SafeAreaView>
             </>

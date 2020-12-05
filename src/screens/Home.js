@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, SafeAreaView, StyleSheet, Button } from 'react-native'
+import { ScrollView, SafeAreaView, StyleSheet, Button, View } from 'react-native'
 import ButtonCard from "../components/ButtonCard";
 import Navbar from "../components/Navbar";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -24,7 +24,8 @@ export default function Home({ route }) {
                     <ButtonCard title="คู่มือแนะนำ" color="pink" icon="book" subTitle="ข้อมูลหรือสื่อของผู้ประกอบการ" />
                     <ButtonCard title="สถิติ" color="#e0aaff" icon="chart-area" subTitle="ข้อมูลหรือสื่อของผู้ประกอบการ" />
                     <ButtonCard title="ร้านค้า" color="#bbd0ff" icon="shopping-cart" subTitle="ข้อมูลหรือสื่อของผู้ประกอบการ" toPage="Shop" data={reference_user_id} />
-                    <ButtonCard title="ติดต่อ" color="#adb5bd" icon="phone-alt" subTitle="ติดต่อกับผู้ประกอบการ" />
+                    <ButtonCard title="ติดต่อ" color="#adb5bd" icon="phone-alt" subTitle="ติดต่อกับผู้ประกอบการ" toPage="Contact" data={route.params.response.result.reference_user_id} />
+                    <View style={{marginTop: 20}}></View>
                 </ScrollView>
             </SafeAreaView>
         </>

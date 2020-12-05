@@ -8,6 +8,8 @@ import checkList from "./src/screens/checkList"
 import addPond from "./src/screens/addPond"
 import PondScreen from "./src/screens/Pond"
 import pondDetail from "./src/screens/pondDetail"
+import resultPond from "./src/screens/resultPond"
+import Contact from "./src/screens/Contact"
 
 const Stack = createStackNavigator();
 
@@ -19,7 +21,9 @@ function App() {
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="checkList" component={checkList} options={{ headerShown: false }} />
         <Stack.Screen name="addPond" component={addPond} options={{ headerShown: false }} />
+        <Stack.Screen name="resultPond" component={resultPond} options={{ headerShown: false }} />
         <Stack.Screen name="pondDetail" component={pondDetail} options={{ headerShown: false }} />
+        <Stack.Screen name="Contact" component={Contact} options={{ headerShown: false }} />
         <Stack.Screen name="Pond" component={PondScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
