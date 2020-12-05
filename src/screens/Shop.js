@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar2"
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Axios from "../components/API"
 import { FlatList, ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
-
+import CategoryCard from "../components/CategoryCard"
 export default class Shop extends Component {
     state = {
         user_id: this.props.route.params.data.user_id,
@@ -25,72 +25,8 @@ export default class Shop extends Component {
                     <ScrollView showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}>
                         <View style={{marginBottom: 80}}></View>
-                        <View style={styles.category}>
-                            <Text style={styles.category_title}>อาหารปลา</Text>
-                            <ScrollView horizontal={true} style={styles.proScroll} showsVerticalScrollIndicator={false}
-                                showsHorizontalScrollIndicator={false}>
-                                <View style={styles.packs}>
-                                    <View style={styles.proItem}>
-                                    </View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                </View>
-
-                            </ScrollView>
-                        </View>
-                        <View style={styles.category}>
-                            <Text style={styles.category_title}>อาหารปลา</Text>
-                            <ScrollView horizontal={true} style={styles.proScroll} showsVerticalScrollIndicator={false}
-                                showsHorizontalScrollIndicator={false}>
-                                <View style={styles.packs}>
-                                    <View style={styles.proItem}>
-                                    </View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                </View>
-
-                            </ScrollView>
-                        </View>
-                        <View style={styles.category}>
-                            <Text style={styles.category_title}>อาหารปลา</Text>
-                            <ScrollView horizontal={true} style={styles.proScroll} showsVerticalScrollIndicator={false}
-                                showsHorizontalScrollIndicator={false}>
-                                <View style={styles.packs}>
-                                    <View style={styles.proItem}>
-                                    </View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                    <View style={styles.proItem}></View>
-                                </View>
-
-                            </ScrollView>
-                        </View>
+                        <CategoryCard />
+                        <CategoryCard />
                         <View style={{marginTop: 80}}></View>
                     </ScrollView>
                 </SafeAreaView>
