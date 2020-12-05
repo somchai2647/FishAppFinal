@@ -2,8 +2,9 @@ import React from 'react';
 import { Alert, Button, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const Navbar = ({ title = "TITLE" }) => {
+const Navbar = ({ title = "TITLE", icon = "bell" }) => {
     const navigation = useNavigation();
     return (
         <>
@@ -12,7 +13,8 @@ const Navbar = ({ title = "TITLE" }) => {
                     navigation.goBack();
                 }} />
                 <Text style={navbar.titleText}>{title}</Text>
-                <Icon name="bell" style={navbar.icon_right} />
+                {(icon=="bell")? <Icon name="bell" style={navbar.icon_right} onPress={() => { console.log("dwadawd") }} /> : <Icon name="shopping-basket" style={navbar.icon_right} onPress={() => { console.log("dwadawd") }} /> }
+                
             </View>
         </>
     )
@@ -37,7 +39,7 @@ const navbar = StyleSheet.create({
     },
     icon_right: {
         color: 'white',
-        fontSize: 22,
+        fontSize: 30,
         position: 'absolute',
         alignSelf: 'center',
         right: 30
