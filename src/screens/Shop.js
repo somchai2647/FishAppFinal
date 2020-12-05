@@ -26,8 +26,6 @@ export default class Shop extends Component {
                     showsHorizontalScrollIndicator={false}>
                         <View style={{marginBottom: 80}}></View>
                         <CategoryCard />
-                        <CategoryCard />
-                        <View style={{marginTop: 80}}></View>
                     </ScrollView>
                 </SafeAreaView>
             </>

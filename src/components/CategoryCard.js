@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, SafeAreaView, Text, View, StyleSheet } from 'react-native'
 import { FlatList, ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
-
+import ProductItem from "./ProductItem"
 export default class CategoryCard extends Component {
     render() {
         return (
@@ -10,19 +10,8 @@ export default class CategoryCard extends Component {
                 <ScrollView horizontal={true} style={styles.proScroll} showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}>
                     <View style={styles.packs}>
-                        <View style={styles.proItem}>
-                        </View>
-                        <View style={styles.proItem}></View>
-                        <View style={styles.proItem}></View>
-                        <View style={styles.proItem}></View>
-                        <View style={styles.proItem}></View>
-                        <View style={styles.proItem}></View>
-                        <View style={styles.proItem}></View>
-                        <View style={styles.proItem}></View>
-                        <View style={styles.proItem}></View>
-                        <View style={styles.proItem}></View>
-                        <View style={styles.proItem}></View>
-                        <View style={styles.proItem}></View>
+                       <ProductItem />
+
                     </View>
 
                 </ScrollView>
